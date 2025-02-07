@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   min-height: 6svh;
   font-family: var(--font-geist-sans);
   padding-inline: 30px;
@@ -11,6 +11,7 @@
   border-radius: 10px;
   background-color: white;
   gap: 100px;
+  margin-inline: 20px;
 }
 .page:hover {
   background-color: #f2f0f0;
@@ -21,13 +22,37 @@
 
 .button {
   display: flex;
-  font-size: 40px;
+  width: 150px; /* 🔹 Define un ancho fijo */
+  height: 40px; /* 🔹 Define una altura fija */
+  font-size: 20px; /* 🔹 Ajusta el tamaño de fuente */
   cursor: pointer;
   border: none;
   background-color: rgb(255, 0, 0);
-  padding: 4px;
+  padding: 8px;
   border-radius: 30px;
+  justify-content: center; /* 🔹 Centra el texto horizontalmente */
+  align-items: center; /* 🔹 Centra el texto verticalmente */
+  text-align: center; /* 🔹 Asegura que el texto se centre */
+  white-space: nowrap; /* 🔹 Evita que el texto se desborde en varias líneas */
+  overflow: hidden; /* 🔹 Evita que el texto se salga del botón */
+  text-overflow: ellipsis; /* 🔹 Agrega "..." si el texto es demasiado largo */
 }
+.button2 {
+  display: flex;
+  width: 80px; /* 🔹 Define un ancho fijo */
+  height: 40px; /* 🔹 Define una altura fija */
+  font-size: 20px; /* 🔹 Ajusta el tamaño de fuente */
+  cursor: pointer;
+  border: none;
+  background-color: rgb(255, 0, 0);
+  padding: 8px;
+  border-radius: 30px;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .order {
   display: flex;
   flex-direction: row;
@@ -38,14 +63,15 @@
   justify-content: space-between;
   padding: 10px;
   gap: 120px;
+  margin-inline: 130px;
 }
 .row2 {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 10px;
-    gap: 70px;
-  }
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  gap: 70px;
+}
 
 .text {
   font-size: 16px;
@@ -55,3 +81,39 @@
 .image {
   border-radius: 100%;
 }
+.active {
+  background-color: rgb(29, 174, 34 ,0.7);
+  scale: 1.005;
+  transition: 200ms;
+  cursor: pointer;
+  color: #153a03;
+  font-size: 16px;
+}
+
+.inactive {
+  background-color: rgb(253, 33, 33 ,0.7);
+  scale: 1.005;
+  transition: 200ms;
+  cursor: pointer;
+  font-size: 16px;
+  color: rgb(64, 4, 4);
+}
+
+.suspended {
+  background-color: rgb(250, 215, 13, 0.7);
+  scale: 1.005;
+  transition: 200ms;
+  cursor: pointer;
+  color: #382f01;
+  font-size: 16px;
+}
+
+.pending_payment {
+  background-color: rgba(250, 99, 23, 0.7); /* Color con transparencia */
+  scale: 1.005;
+  transition: 200ms;
+  cursor: pointer;
+  color: #5b2002;
+  font-size: 16px;
+}
+

@@ -1,7 +1,16 @@
 import styles from "./card.module.css";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import Avatar from "@mui/joy/Avatar";
+import AvatarGroup from "@mui/joy/AvatarGroup";
 
-export default function Card() {
+export default function Card({
+  title,
+  projectPlanData,
+  status,
+  incidents,
+  user,
+  createdAt
+}) {
   return (
     <div className={styles.page}>
       <div className={styles.order}>
@@ -15,22 +24,31 @@ export default function Card() {
           />{" "}
         </div>
         <div>
-          <span className={styles.text}>Nombre del proyecto</span>
+          <span className={styles.text}>{title}</span>
           <div>
-            <span className={styles.text}>24 Nov 2023</span>
-            <span className={styles.text}>24 Nov 2023</span>
+            <span className={styles.text}>{createdAt}</span>
+     
           </div>
         </div>
+        <div className={styles.row}>
+          <button className={`${styles.button2} ${styles.text}`}>
+            {projectPlanData.plan}
+          </button>
+          <button className={`${styles.button} ${styles[status] || styles.default}`}>
+            {status}
+          </button>
+        </div>
       </div>
-      <div className={styles.row}>
-        <button className={`${styles.button} ${styles.text}`}>Pequeña</button>
-        <button className={`${styles.button} ${styles.text}`}>Activo</button>
-        <button className={`${styles.button} ${styles.text}`}>3</button>
-      </div>
+      <AvatarGroup>
+        <Avatar />
+        <Avatar />
+        <Avatar />
+        <Avatar>+{user.length}</Avatar>
+      </AvatarGroup>
 
       <div className={styles.row2}>
         <div>
-          <div className={styles.text}>45</div>
+          <div className={styles.text}>{incidents.length}</div>
           <div className={styles.text}>incidencias</div>
         </div>
         <div>

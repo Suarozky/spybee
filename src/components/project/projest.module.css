@@ -12,7 +12,8 @@
 .row2 {
     display: flex;
     flex-direction: row;
-    gap: 120px;
+    gap: 170px;
+    margin-right:190px ;
 
   }
 
