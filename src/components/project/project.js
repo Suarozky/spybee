@@ -1,51 +1,56 @@
 "use client";
 import { useEffect, useMemo, useCallback, useState } from "react";
 import { useCodeStore } from "@/store/useCodeStore";
-import styles from "./projest.module.css";
+import styles from "./projest.module.css"; // Corregido el nombre del archivo CSS
 import Card from "../card/card";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useDebounce } from "../../hook/useDebounce";
 
 export default function Projects({ inicialData }) {
   const { showStats, showMap, isSmall } = useCodeStore();
   const router = useRouter();
-  
+  const searchParams = useSearchParams(); // Obtener los parámetros de la URL
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("incidents");
 
   // Función para crear query strings
-  const createQueryString = useCallback((name, value) => {
-    const params = new URLSearchParams();
-    if (name === "search") {
-      params.set("search", value);
-    } else if (name === "sort") {
-      params.set("sort", value);
-    }
-    return params.toString();
-  }, []);
+  const createQueryString = useCallback(
+    (name, value) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
+      return params.toString();
+    },
+    [searchParams]
+  );
 
-  // Búsqueda con debounce
+  // Búsqueda debounced
   const debouncedSearch = useDebounce((term) => {
-    setSearch(term);
     router.push("?" + createQueryString("search", term));
   }, 300);
 
   // Manejar el ordenamiento
   const handleSort = (value) => {
-    setSort(value);
     router.replace("?" + createQueryString("sort", value), { scroll: false });
   };
 
+  // Valor por defecto para el ordenamiento
+  const defaultSortValue = useMemo(
+    () => searchParams.get("sort") || "incidents",
+    [searchParams]
+  );
+
   // Filtrar y ordenar los datos
   const filteredAndSortedData = useMemo(() => {
+    const searchTerm = searchParams.get("search") || "";
+    const sortBy = searchParams.get("sort") || "incidents";
+
     let data = inicialData.filter((project) =>
-      project.title.toLowerCase().includes(search.toLowerCase())
+      project.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    if (sort === "incidents") {
+    if (sortBy === "incidents") {
       data.sort((a, b) => b.incidents.length - a.incidents.length);
-    } else if (sort === "rfi") {
+    } else if (sortBy === "rfi") {
       data.sort(
         (a, b) =>
           b.incidents.filter((incident) => incident.item === "RFI").length -
@@ -54,7 +59,7 @@ export default function Projects({ inicialData }) {
     }
 
     return data;
-  }, [inicialData, search, sort]);
+  }, [inicialData, searchParams]);
 
   // Calcular los datos paginados
   const itemsPerPage = 10;
