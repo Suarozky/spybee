@@ -16,15 +16,12 @@
 .row2 {
   display: flex;
   flex-direction: row;
-  gap:170px;
+  gap: 170px;
   margin-left: 150px;
-
 }
 .row3 {
   display: flex;
   flex-direction: row;
-
-
 }
 
 .text {
@@ -39,15 +36,14 @@
   height: full;
   background-color: #f6f7f8;
   gap: 5px;
-
 }
-.map{
+.map {
   background-color: #0080ff;
   display: flex;
   width: 100%;
   height: 600px;
 }
-.stats{
+.stats {
   background-color: #ff0000;
   display: flex;
   width: 70%;
@@ -56,4 +52,29 @@
 
 .row.small {
   width: 60%; /* Reducimos el ancho cuando isSmall es true */
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 280px;
+  color: black;
+  margin-bottom: 20px;
+}
+
+.pagination button {
+  margin: 0 10px;
+  padding: 10px 10px;
+  cursor: pointer;
+  background-color: rgb(247, 189, 27);
+  color: black;
+  border-radius: 10px;
+}
+
+.pagination button:disabled {
+  cursor: not-allowed;
+  background-color: rgb(247, 189, 27, 0.6);
+  color: black;
 }

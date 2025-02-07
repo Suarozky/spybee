@@ -95,3 +95,12 @@
   padding: 3px;
   border-radius: 2px;
 }
+.select {
+  padding: 8px 12px;
+  border-color: rgb(247, 189, 27);
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  margin-left: 10px; /* Ajusta según sea necesario */
+  color: black
+}
