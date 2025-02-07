@@ -5,23 +5,22 @@ import { IoIosOptions } from "react-icons/io";
 import { CiGrid42 } from "react-icons/ci";
 import { LiaMapMarkerSolid } from "react-icons/lia";
 import { useCodeStore } from "@/store/useCodeStore";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useDebounce } from "../../hook/useDebounce";
 import { useCallback, useEffect, useState } from "react";
 
 export default function FilterInput() {
   const { toggleStats, toggleMapAndStats } = useCodeStore();
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   // Estado para manejar los parámetros de búsqueda
   const [params, setParams] = useState(new URLSearchParams());
 
   useEffect(() => {
-    if (searchParams) {
-      setParams(new URLSearchParams(searchParams.toString()));
-    }
-  }, [searchParams]);
+    // Obtenemos searchParams desde window.location.search
+    const urlParams = new URLSearchParams(window.location.search);
+    setParams(urlParams);
+  }, []); // Solo se ejecuta una vez al montar el componente
 
   // Función para crear query strings
   const createQueryString = useCallback(
