@@ -1,3 +1,4 @@
+/* Estilos base para .page */
 .page {
   display: flex;
   flex-direction: row;
@@ -7,12 +8,25 @@
   font-family: var(--font-geist-sans);
   padding-inline: 30px;
   padding: 8px;
-  width: 100%;
   border-radius: 10px;
   background-color: white;
-  gap: 100px;
   margin-inline: 20px;
+  transition: width 0.3s ease-in-out, gap 0.3s ease-in-out; /* Transición suave para el cambio de tamaño y gap */
 }
+
+/* Estilos cuando isSmall es false */
+.page:not(.small) {
+  width: 113%; /* Ocupa el 113% del ancho */
+  gap: 100px; /* Espacio entre elementos */
+}
+
+/* Estilos cuando isSmall es true */
+.page.small {
+  width: 98%; /* Reduce el ancho al 70% */
+  gap: 20px; /* Reduce el espacio entre elementos */
+}
+
+/* Efecto hover */
 .page:hover {
   background-color: #f2f0f0;
   scale: 1.005;
@@ -20,43 +34,47 @@
   cursor: pointer;
 }
 
+/* Estilos para los botones */
 .button {
   display: flex;
-  width: 150px; /* 🔹 Define un ancho fijo */
-  height: 40px; /* 🔹 Define una altura fija */
-  font-size: 20px; /* 🔹 Ajusta el tamaño de fuente */
-  cursor: pointer;
-  border: none;
-  background-color: rgb(255, 0, 0);
-  padding: 8px;
-  border-radius: 30px;
-  justify-content: center; /* 🔹 Centra el texto horizontalmente */
-  align-items: center; /* 🔹 Centra el texto verticalmente */
-  text-align: center; /* 🔹 Asegura que el texto se centre */
-  white-space: nowrap; /* 🔹 Evita que el texto se desborde en varias líneas */
-  overflow: hidden; /* 🔹 Evita que el texto se salga del botón */
-  text-overflow: ellipsis; /* 🔹 Agrega "..." si el texto es demasiado largo */
-}
-.button2 {
-  display: flex;
-  width: 80px; /* 🔹 Define un ancho fijo */
-  height: 40px; /* 🔹 Define una altura fija */
-  font-size: 20px; /* 🔹 Ajusta el tamaño de fuente */
+  width: 110px;
+  height: 40px;
+  font-size: 20px;
   cursor: pointer;
   border: none;
   background-color: rgb(255, 0, 0);
   padding: 8px;
   border-radius: 30px;
   justify-content: center;
+  align-items: center;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+.button2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  background-color: rgb(255, 0, 0);
+  padding: 6px;
+  width: 100px;
+  height: 35px;
+  border-radius: 50px;
+}
+
+/* Estilos para .order */
 .order {
   display: flex;
   flex-direction: row;
+  width: 270px;
+  padding: 4px;
 }
+
+/* Estilos para .row */
 .row {
   display: flex;
   flex-direction: row;
@@ -65,55 +83,101 @@
   gap: 120px;
   margin-inline: 130px;
 }
+
+/* Estilos para .row2 */
 .row2 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 10px;
-  gap: 70px;
+  gap: 50px;
 }
 
+/* Estilos para .text */
 .text {
   font-size: 16px;
   color: #3d3d3d;
 }
 
+/* Estilos para .image */
 .image {
   border-radius: 100%;
 }
+
+/* Estilos para los estados (active, inactive, suspended, pending) */
 .active {
-  background-color: rgb(29, 174, 34 ,0.7);
+  background-color: rgba(47, 206, 53, 0.3);
   scale: 1.005;
   transition: 200ms;
   cursor: pointer;
-  color: #153a03;
-  font-size: 16px;
+  color: #2f6c10;
+  font-size: 20px;
 }
 
 .inactive {
-  background-color: rgb(253, 33, 33 ,0.7);
+  background-color: rgb(253, 33, 33, 0.3);
   scale: 1.005;
   transition: 200ms;
   cursor: pointer;
-  font-size: 16px;
-  color: rgb(64, 4, 4);
+  font-size: 20px;
+  color: rgb(209, 20, 20);
 }
 
 .suspended {
-  background-color: rgb(250, 215, 13, 0.7);
+  background-color: rgb(250, 215, 13, 0.3);
   scale: 1.005;
   transition: 200ms;
   cursor: pointer;
-  color: #382f01;
-  font-size: 16px;
+  color: #d4b415;
+  font-size: 20px;
 }
 
-.pending_payment {
-  background-color: rgba(250, 99, 23, 0.7); /* Color con transparencia */
+.pending {
+  background-color: rgba(250, 99, 23, 0.3);
   scale: 1.005;
   transition: 200ms;
   cursor: pointer;
-  color: #5b2002;
-  font-size: 16px;
+  color: #eb580f;
+  font-size: 20px;
 }
 
+.Pequeño {
+  font-size: 18px;
+  background-color: rgb(193, 109, 13);
+  color: #ffffff;
+}
+
+.Grande {
+  font-size: 18px;
+  background-color: rgb(124, 124, 124);
+  color: #ffffff;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .page {
+    width: 90%; /* En pantallas pequeñas, ocupa el 90% del ancho */
+    flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
+    align-items: flex-start; /* Alinear elementos a la izquierda */
+  }
+
+  .page.small {
+    width: 70%; /* En pantallas pequeñas, reducir el ancho al 70% */
+  }
+
+  .order {
+    width: 100%; /* Ajustar el ancho al 100% para pantallas pequeñas */
+  }
+
+  .row,
+  .row2 {
+    flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
+    gap: 10px; /* Reducir el gap para pantallas pequeñas */
+    margin-inline: 0; /* Eliminar el margen para pantallas pequeñas */
+  }
+
+  .button,
+  .button2 {
+    width: 100%; /* Ajustar el ancho al 100% para pantallas pequeñas */
+  }
+}
