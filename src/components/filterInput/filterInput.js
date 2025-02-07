@@ -12,7 +12,8 @@ import { useCallback, useMemo } from "react";
 export default function FilterInput() {
   const { toggleStats, toggleMapAndStats } = useCodeStore();
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const searchParams = typeof window !== "undefined" ? useSearchParams() : null;
+
 
   // Función para crear query strings
   const createQueryString = useCallback(
@@ -83,3 +84,4 @@ export default function FilterInput() {
     </div>
   );
 }
+export const dynamic = "force-dynamic";
