@@ -5,12 +5,12 @@ import Projects from "../components/project/project";
 import { getData } from "../lib/data";  // Importa correctamente
 
 export default async function Home() {
-  const data = await getData();
-  console.log(data);
+
+
   return (
     <div>
       <FilterInput />
-      <Projects inicialData={data} />
+
     </div>
   );
 }
