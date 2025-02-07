@@ -7,22 +7,30 @@ import { LiaMapMarkerSolid } from "react-icons/lia";
 import { useCodeStore } from "@/store/useCodeStore";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDebounce } from "../../hook/useDebounce";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function FilterInput() {
   const { toggleStats, toggleMapAndStats } = useCodeStore();
   const router = useRouter();
-  const searchParams = typeof window !== "undefined" ? useSearchParams() : null;
+  const searchParams = useSearchParams();
 
+  // Estado para manejar los parámetros de búsqueda
+  const [params, setParams] = useState(new URLSearchParams());
+
+  useEffect(() => {
+    if (searchParams) {
+      setParams(new URLSearchParams(searchParams.toString()));
+    }
+  }, [searchParams]);
 
   // Función para crear query strings
   const createQueryString = useCallback(
     (name, value) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
-      return params.toString();
+      const newParams = new URLSearchParams(params);
+      newParams.set(name, value);
+      return newParams.toString();
     },
-    [searchParams]
+    [params]
   );
 
   // Búsqueda debounced
@@ -35,11 +43,12 @@ export default function FilterInput() {
     router.replace("?" + createQueryString("sort", value), { scroll: false });
   };
 
-  // Valor por defecto para el ordenamiento
-  const defaultSortValue = useMemo(
-    () => searchParams.get("sort") || "incidents",
-    [searchParams]
-  );
+  // Estado para manejar el valor por defecto del select
+  const [defaultSortValue, setDefaultSortValue] = useState("incidents");
+
+  useEffect(() => {
+    setDefaultSortValue(params.get("sort") || "incidents");
+  }, [params]);
 
   return (
     <div className={styles.page}>
@@ -70,7 +79,7 @@ export default function FilterInput() {
         </div>
         <select
           onChange={(e) => handleSort(e.target.value)}
-          defaultValue={defaultSortValue}
+          value={defaultSortValue}
           className={styles.select}
         >
           <option value="incidents">Ordenar por Incidentes</option>
@@ -84,4 +93,3 @@ export default function FilterInput() {
     </div>
   );
 }
-export const dynamic = "force-dynamic";
