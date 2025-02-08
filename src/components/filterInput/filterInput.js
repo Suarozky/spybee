@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useDebounce } from "../../hook/useDebounce";
 import { useCallback, useMemo } from "react";
 
-export default function FilterInput() {
+export default function FilterInput({ inicialData }) {
   const { toggleStats, toggleMapAndStats } = useCodeStore();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -44,7 +44,7 @@ export default function FilterInput() {
     <div className={styles.page}>
       <div className={styles.zone1}>
         <span className={styles.text2}>Mis Proyectos</span>
-        <span className={styles.text}>13 Proyectos</span>
+        <span className={styles.text}>{inicialData.length} Proyectos</span>
       </div>
       <div className={styles.zone1}>
         <div className={styles.bgButton}>

@@ -1,5 +1,5 @@
 import styles from "./card.module.css";
-import { useCodeStore } from "@/store/useCodeStore"; // Importamos Zustand
+import { useCodeStore } from "@/store/useCodeStore";
 import Avatar from "@mui/joy/Avatar";
 import AvatarGroup from "@mui/joy/AvatarGroup";
 
@@ -12,10 +12,18 @@ export default function Card({
   createdAt,
   RFI
 }) {
-  const { isSmall, toggleStats, toggleMapAndStats } = useCodeStore();
+  const { isSmall, toggleStats, toggleMapAndStats, setSelectedProject } = useCodeStore();
+
+  const handleMapClick = () => {
+    setSelectedProject(title);
+  };
 
   return (
-    <div className={`${styles.page} ${isSmall ? styles.small : ""}`}>
+    <div 
+      className={`${styles.page} ${isSmall ? styles.small : ""}`}
+      onClick={handleMapClick}
+      style={{ cursor: 'pointer' }}
+    >
       <div className={`${styles.order} ${isSmall ? styles.small : ""}`}>
         <img
           className={styles.image}
@@ -36,7 +44,10 @@ export default function Card({
         </div>
       </div>
 
-      <div className={`${styles.row} ${isSmall ? styles.small : ""}`}>
+      <div 
+        className={`${styles.row} ${isSmall ? styles.small : ""}`}
+        onClick={e => e.stopPropagation()} // Evitar que los clicks en los botones propaguen
+      >
         <button
           className={`${styles.button2} ${
             styles[projectPlanData.plan] || styles.default
@@ -49,7 +60,7 @@ export default function Card({
           className={`${styles.button} ${styles[status] || styles.default} ${
             isSmall ? styles.small : ""
           }`}
-          onClick={toggleMapAndStats}
+          onClick={handleMapClick}
         >
           {status}
         </button>

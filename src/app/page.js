@@ -7,11 +7,10 @@ import { Suspense } from "react";
 
 export default async function Home() {
   const data = await getData();
-  console.log(data);
   return (
     <div>
       <Suspense fallback={<div>Cargando...</div>}>
-      <FilterInput />
+      <FilterInput inicialData={data}/>
       <Projects inicialData={data} />
       </Suspense>
     </div>

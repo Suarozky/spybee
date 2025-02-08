@@ -1,19 +1,20 @@
 "use client";
 import { useEffect, useMemo, useCallback, useState } from "react";
 import { useCodeStore } from "@/store/useCodeStore";
-import styles from "./projest.module.css"; // Corregido el nombre del archivo CSS
+import styles from "./projest.module.css";
 import Card from "../card/card";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDebounce } from "../../hook/useDebounce";
+import Map from "../map/map";
+import Dashboard from "../dashboard/dashboard";
 
 export default function Projects({ inicialData }) {
-  const { showStats, showMap, isSmall } = useCodeStore();
+  const { showStats, showMap, isSmall, selectedProject } = useCodeStore();
   const router = useRouter();
-  const searchParams = useSearchParams(); // Obtener los parámetros de la URL
-
+  const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Función para crear query strings
+  // Existing query string and search functions remain the same
   const createQueryString = useCallback(
     (name, value) => {
       const params = new URLSearchParams(searchParams);
@@ -23,23 +24,38 @@ export default function Projects({ inicialData }) {
     [searchParams]
   );
 
-  // Búsqueda debounced
   const debouncedSearch = useDebounce((term) => {
     router.push("?" + createQueryString("search", term));
   }, 300);
 
-  // Manejar el ordenamiento
   const handleSort = (value) => {
     router.replace("?" + createQueryString("sort", value), { scroll: false });
   };
 
-  // Valor por defecto para el ordenamiento
   const defaultSortValue = useMemo(
     () => searchParams.get("sort") || "incidents",
     [searchParams]
   );
 
-  // Filtrar y ordenar los datos
+  // Process data for the map
+  const projectsWithCoordinates = useMemo(() => {
+    return inicialData.map((project) => ({
+      ...project,
+      // Include project position
+      position: project.position || null,
+      // Process incidents with coordinates
+      incidents: project.incidents.filter(
+        (incident) => incident.coordinates?.lat && incident.coordinates?.lng
+      ),
+      // Include other necessary data for markers
+      title: project.title,
+      city: project.city,
+      status: project.status,
+      projectPlanData: project.projectPlanData,
+    }));
+  }, [inicialData]);
+
+  // Existing filtering and sorting logic
   const filteredAndSortedData = useMemo(() => {
     const searchTerm = searchParams.get("search") || "";
     const sortBy = searchParams.get("sort") || "incidents";
@@ -61,24 +77,26 @@ export default function Projects({ inicialData }) {
     return data;
   }, [inicialData, searchParams]);
 
-  // Calcular los datos paginados
+  // Pagination logic
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredAndSortedData.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredAndSortedData.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
-  // Cambiar de página
+  const mapProjects = selectedProject
+    ? inicialData.filter((project) => project.title === selectedProject)
+    : inicialData;
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  useEffect(() => {
-    console.log("showStats cambió:", showStats);
-    console.log("showMap cambió:", showMap);
-  }, [showStats, showMap]);
 
   return (
     <div className={styles.page2}>
       <div className={styles.page}>
-        {showMap && <div className={styles.map}>omg</div>}
+        {showMap && <Map projects={mapProjects} />}
+
         <div className={`${styles.row} ${isSmall ? styles.small : ""}`}>
           <span className={styles.text}>Proyecto</span>
           <div className={styles.row2}>
@@ -90,6 +108,7 @@ export default function Projects({ inicialData }) {
           </div>
           <span className={styles.text}>Items por vencer</span>
         </div>
+
         <div className={styles.projects}>
           {currentItems.map((project) => (
             <Card
@@ -111,11 +130,14 @@ export default function Projects({ inicialData }) {
               incidents={project.incidents}
               user={project.users}
               createdAt={project.createdAt}
-              RFI={project.incidents.filter((incident) => incident.item === "RFI").length}
+              RFI={
+                project.incidents.filter((incident) => incident.item === "RFI")
+                  .length
+              }
             />
           ))}
         </div>
-        {/* Controles de paginación */}
+
         <div className={styles.pagination}>
           <button
             onClick={() => paginate(currentPage - 1)}
@@ -132,7 +154,11 @@ export default function Projects({ inicialData }) {
           </button>
         </div>
       </div>
-      {showStats && <div className={styles.stats}>gg</div>}
+      {showStats && (
+        <div className={styles.stats}>
+          <Dashboard></Dashboard>
+        </div>
+      )}
     </div>
   );
 }

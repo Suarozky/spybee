@@ -1,0 +1,187 @@
+.dashboardSummary {
+    max-width: 600px;
+    background: white;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    color: rgb(0, 0, 0);
+   
+  }
+  
+  .dashboardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    color: rgb(0, 0, 0);
+  }
+  
+  .dashboardHeader h1 {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+  }
+  
+  .icon {
+    width: 24px;
+    height: 24px;
+    color: rgb(0, 0, 0);
+  }
+  
+  .dashboardTabs {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 16px;
+    color: rgb(0, 0, 0);
+  }
+  
+  .dashboardTabs button {
+    padding: 8px 16px;
+    color: gray;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+  }
+  
+  .activeTab {
+    color: blue;
+    border-bottom: 2px solid blue;
+    color: rgb(0, 0, 0);
+  }
+  
+  .filterButton {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    color: rgb(0, 0, 0);
+  }
+  
+  .dashboardSection {
+    margin-bottom: 24px;
+    color: rgb(0, 0, 0);
+    gap: 32px;
+  }
+  
+  .dashboardSectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    color: rgb(0, 0, 0);
+  }
+  
+  .seeAllButton {
+    color: blue;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+  }
+  
+  .dashboardMetrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    color: rgb(0, 0, 0);
+  }
+  
+  .dashboardMetric {
+    text-align: center;
+    color: rgb(0, 0, 0);
+    gap: 32px;
+  }
+  
+  .metricLabel {
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+  }
+  
+  .metricTotal {
+    color: gray;
+    font-size: 14px;
+    color: rgb(0, 0, 0);
+  }
+  
+  .circularProgress {
+    position: relative;
+    width: 96px;
+    color: rgb(0, 0, 0);
+    height: 96px;
+  }
+  
+  .circularProgressSvg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+    color: rgb(0, 0, 0);
+  }
+  
+  .circularProgressBg {
+    stroke: #e5e7eb;
+    stroke-width: 8;
+    fill: none;
+    color: rgb(0, 0, 0);
+  }
+  
+  .circularProgressBar {
+    stroke-width: 8;
+    fill: none;
+    stroke-linecap: round;
+    color: rgb(0, 0, 0);
+  }
+  
+  .circularProgressText {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+  }
+  
+  .dashboardProjectsHeader {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    font-size: 14px;
+    color: gray;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: rgb(0, 0, 0);
+  }
+  
+  .dashboardProject {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    font-size: 14px;
+    padding: 8px 0;
+    border-bottom: 1px solid #e5e7eb;
+    color: rgb(0, 0, 0);
+  }
+  
+  .projectName {
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+  }
+  
+  .projectDescription {
+    color: gray;
+    font-size: 12px;
+    color: rgb(0, 0, 0);
+  }
+  
+  .projectType {
+    text-align: center;
+    align-self: center;
+    color: rgb(0, 0, 0);
+  }
+  
+  .projectDeadline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgb(0, 0, 0);
+  }
+  
