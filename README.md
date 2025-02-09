@@ -5,6 +5,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 First, run the development server:
 
 ```bash
+
+#npm i
 npm run dev
 # or
 yarn dev
@@ -13,6 +15,11 @@ pnpm dev
 # or
 bun dev
 ```
+
+### .Example.env
+# API_URL=https://example.app/
+# API_DEV_URL=http://localhost:3000/
+# NEXT_PUBLIC_API_MAP_TOKEN=TU_TOKEN_DE_MAPBOX="Exampletoken"
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
