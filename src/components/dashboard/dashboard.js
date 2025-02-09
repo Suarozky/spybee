@@ -1,36 +1,55 @@
-import React from 'react';
-import { ChevronRight, Clock, Filter } from 'lucide-react';
-import styles from './dashboard.module.css';
+import React from "react";
+import { ChevronRight, Clock, Filter } from "lucide-react";
+import styles from "./dashboard.module.css";
 
-const Dashboard = () => {
+const Dashboard = ({ inicialData }) => {
   const metrics = [
-    { label: 'Incidencias', total: 60, open: 10, color: 'rgb(239, 68, 68)' },
-    { label: 'RFI', total: 50, open: 23, color: 'rgb(239, 68, 68)' },
-    { label: 'Tareas', total: 120, open: 50, color: 'rgb(239, 68, 68)' }
+    {
+      label: "Incidencias",
+      total: inicialData.reduce(
+        (acc, project) => acc + project.incidents.length,
+        0
+      ),
+      open: 10,
+      color: "rgb(239, 68, 68)",
+    },
+    {
+      label: "RFI",
+      total: inicialData.reduce(
+        (acc, project) =>
+          acc +
+          project.incidents.filter((incident) => incident.item === "RFI")
+            .length,
+        0
+      ),
+      open: 23,
+      color: "rgb(239, 68, 68)",
+    },
+    { label: "Tareas", total: 120, open: 50, color: "rgb(239, 68, 68)" },
   ];
 
   const projects = [
     {
-      name: 'Proyecto uno',
-      description: 'Revisar reportes del mié...',
-      type: 'Incidencia',
-      date: '12/08/2024',
-      time: '15:00'
+      name: "Proyecto uno",
+      description: "Revisar reportes del mié...",
+      type: "Incidencia",
+      date: "12/08/2024",
+      time: "15:00",
     },
     {
-      name: 'Proyecto uno',
-      description: 'Revisar reportes del mié...',
-      type: 'Incidencia',
-      date: '12/08/2024',
-      time: '15:00'
+      name: "Proyecto uno",
+      description: "Revisar reportes del mié...",
+      type: "Incidencia",
+      date: "12/08/2024",
+      time: "15:00",
     },
     {
-      name: 'Proyecto uno',
-      description: 'Revisar reportes del mié...',
-      type: 'Incidencia',
-      date: '12/08/2024',
-      time: '15:00'
-    }
+      name: "Proyecto uno",
+      description: "Revisar reportes del mié...",
+      type: "Incidencia",
+      date: "12/08/2024",
+      time: "15:00",
+    },
   ];
 
   const CircularProgress = ({ value, total, color }) => {
@@ -41,7 +60,12 @@ const Dashboard = () => {
     return (
       <div className={styles.circularProgress}>
         <svg className={styles.circularProgressSvg}>
-          <circle className={styles.circularProgressBg} cx="48" cy="48" r="40" />
+          <circle
+            className={styles.circularProgressBg}
+            cx="48"
+            cy="48"
+            r="40"
+          />
           <circle
             className={styles.circularProgressBar}
             cx="48"
@@ -83,8 +107,14 @@ const Dashboard = () => {
           {metrics.map((metric, index) => (
             <div key={index} className={styles.dashboardMetric}>
               <div className={styles.metricLabel}>{metric.label}</div>
-              <div className={styles.metricTotal}>{metric.total} Total Abiertas</div>
-              <CircularProgress value={metric.open} total={metric.total} color={metric.color} />
+              <div className={styles.metricTotal}>
+                {metric.total} Total Abiertas
+              </div>
+              <CircularProgress
+                value={metric.open}
+                total={metric.total}
+                color={metric.color}
+              />
             </div>
           ))}
         </div>
@@ -100,7 +130,9 @@ const Dashboard = () => {
           <div key={index} className={styles.dashboardProject}>
             <div>
               <div className={styles.projectName}>{project.name}</div>
-              <div className={styles.projectDescription}>{project.description}</div>
+              <div className={styles.projectDescription}>
+                {project.description}
+              </div>
             </div>
             <div className={styles.projectType}>{project.type}</div>
             <div className={styles.projectDeadline}>

@@ -156,7 +156,7 @@ export default function Projects({ inicialData }) {
       </div>
       {showStats && (
         <div className={styles.stats}>
-          <Dashboard></Dashboard>
+          <Dashboard inicialData={inicialData} />
         </div>
       )}
     </div>
